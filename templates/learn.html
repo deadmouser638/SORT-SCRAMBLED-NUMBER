@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Learn{% endblock %}
+{% block meta_desc %}Learn how every sorting algorithm works — plain-English explanations, decision flowchart, and interactive properties comparison.{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/learn.css?v=1.1">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">Learn Sorting Algorithms</h1>
+        <p class="page-subtitle">Understand how each algorithm works, when to use it, and see real code examples</p>
+    </div>
+
+    <!-- Decision Flowchart -->
+    <section class="learn-section" id="flowchart-section">
+        <div class="section-header">
+            <i data-lucide="git-merge" class="section-icon"></i>
+            <div>
+                <h2 class="section-title">Which Algorithm Should You Use?</h2>
+                <p class="section-subtitle">Follow the decision tree to find the best sort for your use case</p>
+            </div>
+        </div>
+        <div class="flowchart" id="flowchart">
+            <!-- Populated by learn.js -->
+        </div>
+    </section>
+
+    <!-- Algorithm Deep-Dive Cards -->
+    <section class="learn-section" id="cards-section">
+        <div class="section-header">
+            <i data-lucide="layers" class="section-icon"></i>
+            <div>
+                <h2 class="section-title">Algorithm Deep Dives</h2>
+                <p class="section-subtitle">Click any card to expand — see analogies, step-by-step explanations, and complexity details</p>
+            </div>
+        </div>
+        <div class="algo-cards" id="algo-cards">
+            <!-- Populated by learn.js -->
+        </div>
+    </section>
+
+    <!-- Ideal Sort Properties Matrix -->
+    <section class="learn-section" id="properties-section">
+        <div class="section-header">
+            <i data-lucide="check-square" class="section-icon"></i>
+            <div>
+                <h2 class="section-title">Ideal Sort Properties</h2>
+                <p class="section-subtitle">No sorting algorithm satisfies all ideal properties. The choice depends on your use case.</p>
+            </div>
+        </div>
+        <div class="properties-table-wrap">
+            <table class="properties-table" id="properties-table">
+                <!-- Populated by learn.js -->
+            </table>
+        </div>
+        <div class="properties-legend">
+            <span class="legend-item"><i data-lucide="check" class="legend-icon legend-yes"></i> Has property</span>
+            <span class="legend-item"><i data-lucide="x" class="legend-icon legend-no"></i> Does not have property</span>
+            <span class="legend-item"><i data-lucide="minus" class="legend-icon legend-na"></i> Not applicable</span>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="/static/js/learn.js?v=1.1"></script>
+{% endblock %}

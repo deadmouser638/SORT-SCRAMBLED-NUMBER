@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Race{% endblock %}
+{% block meta_desc %}Race all 6 sorting algorithms simultaneously and see which finishes first.{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/race.css?v=1.1">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="page-header-text">
+            <h1 class="page-title">Algorithm Race</h1>
+            <p class="page-subtitle">All 6 sorting algorithms racing simultaneously on the same array</p>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="race-controls" id="race-controls">
+        <div class="control-group">
+            <label class="control-label">
+                <i data-lucide="sliders-horizontal" class="control-icon"></i>
+                Array Size
+            </label>
+            <div class="slider-with-value">
+                <input type="range" id="race-size" min="10" max="50" value="20" class="slider">
+                <span class="slider-value" id="race-size-val">20</span>
+            </div>
+        </div>
+        <button class="btn btn--primary btn--lg" id="btn-start-race">
+            <i data-lucide="flag" class="btn-icon"></i>
+            START RACE
+        </button>
+    </div>
+
+    <!-- Race Grid (3x2) -->
+    <div class="race-grid" id="race-grid">
+        <div class="race-panel" data-algo="bubble">
+            <div class="race-panel-header">
+                <span class="race-panel-name">Bubble Sort</span>
+                <span class="race-panel-tag">O(n^2)</span>
+                <span class="race-panel-status" id="race-status-bubble">Ready</span>
+            </div>
+            <div class="race-panel-bars" id="race-bars-bubble"></div>
+            <div class="race-panel-progress"><div class="race-progress-fill" id="race-progress-bubble"></div></div>
+        </div>
+        <div class="race-panel" data-algo="selection">
+            <div class="race-panel-header">
+                <span class="race-panel-name">Selection Sort</span>
+                <span class="race-panel-tag">O(n^2)</span>
+                <span class="race-panel-status" id="race-status-selection">Ready</span>
+            </div>
+            <div class="race-panel-bars" id="race-bars-selection"></div>
+            <div class="race-panel-progress"><div class="race-progress-fill" id="race-progress-selection"></div></div>
+        </div>
+        <div class="race-panel" data-algo="insertion">
+            <div class="race-panel-header">
+                <span class="race-panel-name">Insertion Sort</span>
+                <span class="race-panel-tag">O(n^2)</span>
+                <span class="race-panel-status" id="race-status-insertion">Ready</span>
+            </div>
+            <div class="race-panel-bars" id="race-bars-insertion"></div>
+            <div class="race-panel-progress"><div class="race-progress-fill" id="race-progress-insertion"></div></div>
+        </div>
+        <div class="race-panel" data-algo="merge">
+            <div class="race-panel-header">
+                <span class="race-panel-name">Merge Sort</span>
+                <span class="race-panel-tag">O(n log n)</span>
+                <span class="race-panel-status" id="race-status-merge">Ready</span>
+            </div>
+            <div class="race-panel-bars" id="race-bars-merge"></div>
+            <div class="race-panel-progress"><div class="race-progress-fill" id="race-progress-merge"></div></div>
+        </div>
+        <div class="race-panel" data-algo="quick">
+            <div class="race-panel-header">
+                <span class="race-panel-name">Quick Sort</span>
+                <span class="race-panel-tag">O(n log n)</span>
+                <span class="race-panel-status" id="race-status-quick">Ready</span>
+            </div>
+            <div class="race-panel-bars" id="race-bars-quick"></div>
+            <div class="race-panel-progress"><div class="race-progress-fill" id="race-progress-quick"></div></div>
+        </div>
+        <div class="race-panel" data-algo="radix">
+            <div class="race-panel-header">
+                <span class="race-panel-name">Radix Sort</span>
+                <span class="race-panel-tag">O(nk)</span>
+                <span class="race-panel-status" id="race-status-radix">Ready</span>
+            </div>
+            <div class="race-panel-bars" id="race-bars-radix"></div>
+            <div class="race-panel-progress"><div class="race-progress-fill" id="race-progress-radix"></div></div>
+        </div>
+    </div>
+
+    <!-- Race Results -->
+    <div class="race-results" id="race-results" style="display:none">
+        <div class="chart-header">
+            <h3 class="chart-title">Race Results</h3>
+        </div>
+        <div class="race-leaderboard" id="race-leaderboard">
+            <!-- Populated by race.js -->
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="/static/js/race.js?v=1.1"></script>
+{% endblock %}

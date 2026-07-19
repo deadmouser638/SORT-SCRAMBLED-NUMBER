@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sort Scramble{% endblock %} — Sorting Algorithm Visualizer</title>
+    <meta name="description" content="{% block meta_desc %}Visualize, compare, and race 6 sorting algorithms step-by-step. Built for DSA Hackathon 2026.{% endblock %}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sort Scramble — Sorting Algorithm Visualizer">
+    <meta property="og:description" content="Visualize, benchmark, and race 6 sorting algorithms with interactive animations.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/static/img/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/static/css/nav.css?v=1.1">
+    <link rel="stylesheet" href="/static/css/main.css?v=1.1">
+
+    <!-- Page-specific CSS -->
+    {% block page_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+    {% include "partials/nav.html" %}
+
+    {% block content %}{% endblock %}
+
+    <!-- Core JS -->
+    <script src="/static/js/nav.js?v=1.1"></script>
+    <script>lucide.createIcons();</script>
+
+    <!-- Page-specific JS -->
+    {% block page_js %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+{% block meta_desc %}Sort Scramble — Visualize, benchmark, and race sorting algorithms. Interactive DSA learning tool.{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/landing.css?v=1.1">
+{% endblock %}
+
+{% block content %}
+<div class="landing">
+
+    <!-- Full Page Parallax Background -->
+    <div class="landing-bg"></div>
+
+    <!-- ── HERO ──────────────────────────────────────────── -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="url(#sparkle-grad)" />
+                    <defs>
+                        <linearGradient id="sparkle-grad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#00F0FF" />
+                            <stop offset="1" stop-color="#7000FF" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>Enterprise Visualizer</span>
+            </div>
+            
+            <h1 class="hero-title">
+                The Anatomy of <br/>
+                <span class="hero-title-italic">Sorting</span> Algorithms.
+            </h1>
+            
+            <p class="hero-subtitle">
+                A definitive, interactive exploration of data structures and algorithms, 
+                designed for profound understanding and visual excellence.
+            </p>
+            
+            <div class="hero-actions">
+                <a href="/visualizer" class="btn btn--primary" aria-label="Start Visualizer Application">
+                    <span class="btn-text">Start Visualizer</span>
+                    <span class="btn-arrow">→</span>
+                </a>
+                <a href="/learn" class="btn btn--ghost">
+                    <span class="btn-text">Study Theory</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="demo-card">
+                <div class="demo-header">
+                    <div class="demo-title">Live Preview • Bubble Sort</div>
+                    <div class="demo-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <!-- 15 bars rendered by mini-demo.js -->
+                <div class="demo-bars" id="demo-bars"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── EDITORIAL FEATURES ────────────────────────────── -->
+    <section class="features">
+        <div class="feature-row feature-row--reversed">
+            <div class="feature-text">
+                <div class="feature-number">01</div>
+                <h2 class="feature-title">Granular Mechanics</h2>
+                <p class="feature-desc">
+                    Step through each algorithm execution with unparalleled clarity. 
+                    Color-coding maps directly to synchronized pseudocode, revealing the exact 
+                    state of the array at every execution step.
+                </p>
+                <a href="/visualizer" class="feature-link">Explore Visualizer <span class="feature-arrow">→</span></a>
+            </div>
+            <div class="feature-image feature-image--visualizer"></div>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-text">
+                <div class="feature-number">02</div>
+                <h2 class="feature-title">Performance Optics</h2>
+                <p class="feature-desc">
+                    Compare execution metrics across massive datasets. Our dynamic benchmark 
+                    engine exposes exactly why no single algorithm dominates all scenarios, 
+                    using real-time line charts and data tables.
+                </p>
+                <a href="/benchmark" class="feature-link">Run Benchmarks <span class="feature-arrow">→</span></a>
+            </div>
+            <div class="feature-image feature-image--benchmark"></div>
+        </div>
+        
+        <div class="feature-row feature-row--reversed">
+            <div class="feature-text">
+                <div class="feature-number">03</div>
+                <h2 class="feature-title">Theoretical Framework</h2>
+                <p class="feature-desc">
+                    Master the foundational principles behind each algorithm. Access detailed 
+                    time/space complexity breakdowns, Python implementations, and a comprehensive 
+                    decision flowchart.
+                </p>
+                <a href="/learn" class="feature-link">Study Theory <span class="feature-arrow">→</span></a>
+            </div>
+            <div class="feature-image feature-image--learn"></div>
+        </div>
+    </section>
+
+    <!-- ── ALGORITHMS STRIP ──────────────────────────────── -->
+    <section class="algo-strip">
+        <div class="algo-strip-inner">
+            <div class="algo-chip">
+                <span class="algo-chip-num">01</span>
+                <span class="algo-chip-name">Bubble Sort</span>
+                <span class="algo-chip-tag">O(n^2)</span>
+            </div>
+            <div class="algo-chip">
+                <span class="algo-chip-num">02</span>
+                <span class="algo-chip-name">Selection Sort</span>
+                <span class="algo-chip-tag">O(n^2)</span>
+            </div>
+            <div class="algo-chip">
+                <span class="algo-chip-num">03</span>
+                <span class="algo-chip-name">Insertion Sort</span>
+                <span class="algo-chip-tag">O(n^2)</span>
+            </div>
+            <div class="algo-chip">
+                <span class="algo-chip-num">04</span>
+                <span class="algo-chip-name">Merge Sort</span>
+                <span class="algo-chip-tag">O(n log n)</span>
+            </div>
+            <div class="algo-chip">
+                <span class="algo-chip-num">05</span>
+                <span class="algo-chip-name">Quick Sort</span>
+                <span class="algo-chip-tag">O(n log n)</span>
+            </div>
+            <div class="algo-chip">
+                <span class="algo-chip-num">06</span>
+                <span class="algo-chip-name">Radix Sort</span>
+                <span class="algo-chip-tag">O(nk)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ────────────────────────────────────────── -->
+    <footer class="landing-footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true">
+                    <rect width="32" height="32" rx="4" fill="#12141B"/>
+                    <rect x="4" y="20" width="4" height="8" fill="#8B5CF6" rx="1"/>
+                    <rect x="10" y="14" width="4" height="14" fill="#06B6D4" rx="1"/>
+                    <rect x="16" y="8" width="4" height="20" fill="#5E6AD2" rx="1"/>
+                    <rect x="22" y="4" width="4" height="24" fill="#22C55E" rx="1"/>
+                </svg>
+                <span>Sort Scramble</span>
+            </div>
+            <span class="footer-text">Built for Interactive DSA Education</span>
+        </div>
+    </footer>
+
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="/static/js/mini-demo.js?v=1.1"></script>
+{% endblock %}

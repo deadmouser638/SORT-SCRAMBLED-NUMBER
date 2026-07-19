@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+<div class="page-container" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;gap:24px;">
+
+    <div style="width:80px;height:80px;display:flex;align-items:center;justify-content:center;background:rgba(94,106,210,0.12);border-radius:20px;margin-bottom:8px;">
+        <i data-lucide="search-x" style="width:40px;height:40px;color:#5E6AD2;"></i>
+    </div>
+
+    <h1 style="font-family:'Inter',sans-serif;font-size:48px;font-weight:700;color:#ECEDF1;margin:0;">404</h1>
+    <p style="font-family:'Inter',sans-serif;font-size:16px;color:#6B6D7E;margin:0;max-width:400px;">
+        This page doesn't exist. Maybe the array got scrambled a bit too hard.
+    </p>
+
+    <a href="/" class="btn btn--primary btn--lg" style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:#5E6AD2;color:#fff;text-decoration:none;border-radius:10px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;">
+        <i data-lucide="home" style="width:16px;height:16px;"></i>
+        Go Back Home
+    </a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,131 @@
+# ═══════════════════════════════════════════════════════════════
+# SORT SCRAMBLE — Professional .gitignore
+# Stack: Python (Flask), Node.js, HTML/CSS/JS, Vercel
+# ═══════════════════════════════════════════════════════════════
+
+# ── Environment & Secrets ──────────────────────────────────────
+.env
+.env.*
+!.env.example
+.venv
+venv/
+ENV/
+env/
+secrets.json
+*.key
+*.pem
+*.cert
+
+# ── Python ─────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py.cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Flask instance and DBs
+instance/
+.webassets-cache
+*.sqlite
+*.sqlite3
+*.db
+
+# ── Node.js / Frontend ─────────────────────────────────────────
+node_modules/
+package.json
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.eslintcache
+.stylelintcache
+dist/
+build/
+coverage/
+.nyc_output/
+
+# ── IDEs & Editors ─────────────────────────────────────────────
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.iml
+*.iws
+*.sublime-project
+*.sublime-workspace
+.cursor/
+.cursorignore
+.cursorindexingignore
+
+# ── OS Generated Files ─────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*~
+.fuse_hidden*
+.Trash-*
+
+# ── Deployment & CI/CD ─────────────────────────────────────────
+.vercel
+.vercel.json
+.deploy/
+
+# ── App Specific / Temp ────────────────────────────────────────
+-p/
+tmp/
+temp/
+.tmp/
+*.tmp
+*.bak
+*.swp
+*.swo
+logs/
+*.log
+uploads/
+media/
+*.pdf

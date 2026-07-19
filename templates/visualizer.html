@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block title %}Visualizer{% endblock %}
+
+{% block body_class %}page-visualizer{% endblock %}
+
+{% block page_css %}
+<!-- Visualizer uses the main.css which is already in base -->
+{% endblock %}
+
+{% block content %}
+    <!-- ── SIDEBAR ────────────────────────────────────────── -->
+    <aside class="sidebar" id="sidebar">
+
+        <!-- Logo removed to save vertical space; branding is handled globally or via clean space -->
+
+        <!-- Algorithm Selector with Category Labels -->
+        <div class="sidebar-section">
+            <div class="section-label">Algorithm</div>
+            <div class="algo-buttons" id="algo-buttons">
+                <!-- O(n^2) Quadratic -->
+                <div class="algo-category-label">
+                    <i data-lucide="bar-chart-2" class="category-icon"></i>
+                    <span>O(n^2) Quadratic</span>
+                </div>
+                <button class="algo-btn active" data-algo="bubble">
+                    <span class="algo-btn-icon">01</span>
+                    <span class="algo-btn-name">Bubble Sort</span>
+                    <span class="algo-btn-tag">O(n^2)</span>
+                </button>
+                <button class="algo-btn" data-algo="selection">
+                    <span class="algo-btn-icon">02</span>
+                    <span class="algo-btn-name">Selection Sort</span>
+                    <span class="algo-btn-tag">O(n^2)</span>
+                </button>
+                <button class="algo-btn" data-algo="insertion">
+                    <span class="algo-btn-icon">03</span>
+                    <span class="algo-btn-name">Insertion Sort</span>
+                    <span class="algo-btn-tag">O(n^2)</span>
+                </button>
+
+                <!-- O(n log n) Logarithmic -->
+                <div class="algo-category-label">
+                    <i data-lucide="trending-up" class="category-icon"></i>
+                    <span>O(n log n) Logarithmic</span>
+                </div>
+                <button class="algo-btn" data-algo="merge">
+                    <span class="algo-btn-icon">04</span>
+                    <span class="algo-btn-name">Merge Sort</span>
+                    <span class="algo-btn-tag">O(n log n)</span>
+                </button>
+                <button class="algo-btn" data-algo="quick">
+                    <span class="algo-btn-icon">05</span>
+                    <span class="algo-btn-name">Quick Sort</span>
+                    <span class="algo-btn-tag">O(n log n)</span>
+                </button>
+
+                <!-- Non-Comparison -->
+                <div class="algo-category-label">
+                    <i data-lucide="hash" class="category-icon"></i>
+                    <span>Non-Comparison</span>
+                </div>
+                <button class="algo-btn" data-algo="radix">
+                    <span class="algo-btn-icon">06</span>
+                    <span class="algo-btn-name">Radix Sort</span>
+                    <span class="algo-btn-tag">O(nk)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="sidebar-section">
+            <div class="section-label">Complexity</div>
+            <div class="info-card" id="info-card">
+                <div class="info-row">
+                    <span class="info-key">Best</span>
+                    <span class="info-val" id="info-best">O(n)</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-key">Average</span>
+                    <span class="info-val" id="info-avg">O(n^2)</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-key">Worst</span>
+                    <span class="info-val" id="info-worst">O(n^2)</span>
+                </div>
+                <div class="info-row info-row--highlight">
+                    <span class="info-key">Space</span>
+                    <span class="info-val" id="info-space">O(1)</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-key">Stable</span>
+                    <span class="info-val" id="info-stable">Yes</span>
+                </div>
+                <div class="info-row info-row--accent">
+                    <span class="info-key">DS Used</span>
+                    <span class="info-val ds-val" id="info-ds">Array</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+            <span class="sidebar-footer-text">DSA Hackathon 2026</span>
+        </div>
+    </aside>
+
+    <!-- ── MAIN CONTENT ───────────────────────────────────── -->
+    <main class="main" id="main">
+
+        <!-- Header Bar -->
+        <header class="main-header">
+            <div class="header-left">
+                <h1 class="algo-title" id="algo-title">Bubble Sort</h1>
+                <span class="algo-tag" id="algo-ds-tag">Array</span>
+            </div>
+            <div class="header-right">
+                <p class="algo-desc" id="algo-desc">Repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.</p>
+            </div>
+        </header>
+
+        <!-- Transport Controls + Stats + Speed -->
+        <div class="transport-bar">
+            <div class="transport-buttons">
+                <button class="transport-btn" id="btn-reset" title="Reset (R)">
+                    <i data-lucide="rotate-ccw" style="width:16px;height:16px"></i>
+                </button>
+                <button class="transport-btn" id="btn-step-back" title="Step Back">
+                    <i data-lucide="skip-back" style="width:16px;height:16px"></i>
+                </button>
+                <button class="transport-btn transport-play" id="btn-play" title="Play/Pause (Space)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" id="play-icon"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" id="pause-icon" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                </button>
+                <button class="transport-btn" id="btn-step-fwd" title="Step Forward">
+                    <i data-lucide="skip-forward" style="width:16px;height:16px"></i>
+                </button>
+                <button class="sort-btn" id="btn-sort" title="Sort (Enter)">
+                    <i data-lucide="play" style="width:14px;height:14px"></i>
+                    SORT
+                </button>
+
+
+                <!-- Fullscreen Toggle -->
+                <button class="transport-btn" id="btn-fullscreen" title="Fullscreen">
+                    <i data-lucide="maximize-2" id="fullscreen-icon" style="width:16px;height:16px"></i>
+                </button>
+            </div>
+
+            <!-- Inline Stats -->
+            <div class="inline-stats">
+                <div class="inline-stat">
+                    <span class="inline-stat-label">Comparisons</span>
+                    <span class="inline-stat-val" id="stat-comparisons">0</span>
+                </div>
+                <div class="inline-stat">
+                    <span class="inline-stat-label">Swaps</span>
+                    <span class="inline-stat-val" id="stat-swaps">0</span>
+                </div>
+                <div class="inline-stat">
+                    <span class="inline-stat-label">Step</span>
+                    <span class="inline-stat-val" id="stat-step">0 / 0</span>
+                </div>
+            </div>
+
+            <!-- Inline Speed -->
+            <div class="inline-speed">
+                <span class="speed-tag">Sorting Speed</span>
+                <span class="speed-end-label">Slow</span>
+                <input type="range" id="speed-slider" min="1" max="100" value="50" class="slider slider--speed slider--inline" title="Animation Speed">
+                <span class="speed-end-label">Fast</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-track" id="progress-track">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Visualization Area -->
+        <div class="viz-container" id="viz-container">
+            <div class="bar-chart" id="bar-chart">
+                <!-- Bars rendered by JS -->
+            </div>
+            
+            <!-- Post-Sort Action Center -->
+            <div class="post-sort-overlay" id="post-sort-overlay">
+                <div class="post-sort-content">
+                    <h3 class="post-sort-title">Sorting Complete!</h3>
+                    <p class="post-sort-stats">
+                        <span id="ps-algo-name">Bubble Sort</span> finished sorting <span id="ps-array-size">15</span> elements taking <span id="ps-comparisons">0</span> comparisons and <span id="ps-swaps">0</span> swaps.
+                    </p>
+                    <div class="post-sort-actions">
+                        <button class="action-btn action-btn--primary" id="btn-replay">
+                            <i data-lucide="rotate-ccw" style="width:16px;height:16px"></i> Replay
+                        </button>
+                        <a href="/benchmark" class="action-btn">
+                            <i data-lucide="bar-chart-2" style="width:16px;height:16px"></i> Benchmark
+                        </a>
+                        <a href="/learn" class="action-btn">
+                            <i data-lucide="book-open" style="width:16px;height:16px"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Panels: DS + Pseudocode side by side -->
+        <div class="bottom-panels">
+            <!-- DS Panel -->
+            <div class="ds-panel" id="ds-panel">
+                <div class="ds-panel-header">
+                    <span class="ds-panel-label">DATA STRUCTURE</span>
+                    <span class="ds-panel-type" id="ds-panel-type">Array Visualization</span>
+                </div>
+                <div class="ds-panel-content" id="ds-panel-content">
+                    <!-- DS visualization rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Pseudocode Panel -->
+            <div class="pseudocode-panel" id="pseudocode-panel">
+                <div class="ds-panel-header">
+                    <span class="ds-panel-label">PSEUDOCODE</span>
+                    <span class="ds-panel-type" id="pseudocode-algo-name">Bubble Sort</span>
+                </div>
+                <div class="pseudocode-block" id="pseudocode-block">
+                    <!-- Pseudocode lines rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Bottom Dock -->
+        <div class="bottom-dock">
+            <div class="dock-main">
+                <label for="array-input" class="dock-label">ARRAY</label>
+                <div class="input-group-dock">
+                    <input
+                        type="text"
+                        id="array-input"
+                        class="text-input dock-text-input"
+                        placeholder="e.g. 64, 11, 90..."
+                        spellcheck="false"
+                    >
+                    <button class="action-btn action-btn--primary" id="btn-random" title="Generate random array">
+                        <i data-lucide="refresh-cw" style="width:14px;height:14px"></i>
+                        Random
+                    </button>
+                    <div class="size-control-dock">
+                        <span class="size-label">Size</span>
+                        <input type="range" id="size-slider" min="5" max="50" value="15" class="slider">
+                        <input type="number" id="size-value" class="size-input" value="15" min="5" max="50" step="1">
+                    </div>
+                    <div class="divider-v"></div>
+                    <div class="preset-row">
+                        <button class="preset-btn" data-preset="sorted">Sorted</button>
+                        <button class="preset-btn" data-preset="reverse">Reverse</button>
+                        <button class="preset-btn" data-preset="nearly">Nearly Sorted</button>
+                    </div>
+                </div>
+            </div>
+            <div class="dock-footer">
+                <div class="message-bar" id="message-bar">
+                    Select an algorithm and click SORT to begin.
+                </div>
+                <div class="legend-inline">
+                    <div class="legend-item"><span class="legend-swatch swatch--default"></span>Unsorted</div>
+                    <div class="legend-item"><span class="legend-swatch swatch--comparing"></span>Comparing</div>
+                    <div class="legend-item"><span class="legend-swatch swatch--swapping"></span>Swapping</div>
+                    <div class="legend-item"><span class="legend-swatch swatch--sorted"></span>Sorted</div>
+                    <div class="legend-item"><span class="legend-swatch swatch--pivot"></span>Pivot</div>
+                    <div class="legend-item"><span class="legend-swatch swatch--selected"></span>Active Range</div>
+                    <div class="legend-item"><span class="legend-swatch swatch--bucket"></span>Bucket</div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block page_js %}
+
+    <script src="/static/js/renderer.js?v=1.1"></script>
+    <script src="/static/js/animator.js?v=1.1"></script>
+    <script src="/static/js/pseudocode.js?v=1.1"></script>
+    <script src="/static/js/controls.js?v=1.1"></script>
+    <script src="/static/js/app.js?v=1.1"></script>
+    <script>lucide.createIcons();</script>
+{% endblock %}

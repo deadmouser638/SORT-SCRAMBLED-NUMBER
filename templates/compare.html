@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Compare{% endblock %}
+{% block meta_desc %}Compare two sorting algorithms side by side on the same array.{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/compare.css?v=1.1">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="page-header-text">
+            <h1 class="page-title">Algorithm Comparison</h1>
+            <p class="page-subtitle">Run two algorithms side by side on the same array and watch how they differ</p>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="compare-controls" id="compare-controls">
+        <div class="compare-pickers">
+            <div class="picker-group">
+                <label class="control-label">Algorithm A</label>
+                <select class="select-input" id="compare-algo1">
+                    <option value="bubble">Bubble Sort</option>
+                    <option value="selection">Selection Sort</option>
+                    <option value="insertion">Insertion Sort</option>
+                    <option value="merge" selected>Merge Sort</option>
+                    <option value="quick">Quick Sort</option>
+                    <option value="radix">Radix Sort</option>
+                </select>
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="picker-group">
+                <label class="control-label">Algorithm B</label>
+                <select class="select-input" id="compare-algo2">
+                    <option value="bubble" selected>Bubble Sort</option>
+                    <option value="selection">Selection Sort</option>
+                    <option value="insertion">Insertion Sort</option>
+                    <option value="merge">Merge Sort</option>
+                    <option value="quick">Quick Sort</option>
+                    <option value="radix">Radix Sort</option>
+                </select>
+            </div>
+        </div>
+        <div class="compare-array-input">
+            <label class="control-label">Shared Array</label>
+            <div class="array-input-row">
+                <input type="text" id="compare-array" class="text-input" placeholder="e.g. 64, 11, 90, 25, 3, 47" spellcheck="false">
+                <button class="btn btn--ghost" id="compare-random">
+                    <i data-lucide="refresh-cw" class="btn-icon"></i>
+                    Random
+                </button>
+            </div>
+        </div>
+        <button class="btn btn--primary btn--lg" id="btn-compare">
+            <i data-lucide="git-compare" class="btn-icon"></i>
+            Compare
+        </button>
+    </div>
+
+    <!-- Dual Panels -->
+    <div class="compare-panels" id="compare-panels">
+        <div class="compare-panel" id="compare-left">
+            <div class="panel-header">
+                <span class="panel-algo-name" id="panel-left-name">Merge Sort</span>
+                <span class="panel-stats" id="panel-left-stats">-- steps</span>
+            </div>
+            <div class="panel-bars" id="compare-left-bars">
+                <p class="placeholder-text">Select algorithms and click Compare</p>
+            </div>
+        </div>
+        <div class="compare-panel" id="compare-right">
+            <div class="panel-header">
+                <span class="panel-algo-name" id="panel-right-name">Bubble Sort</span>
+                <span class="panel-stats" id="panel-right-stats">-- steps</span>
+            </div>
+            <div class="panel-bars" id="compare-right-bars">
+                <p class="placeholder-text">Select algorithms and click Compare</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shared Transport -->
+    <div class="compare-transport" id="compare-transport" style="display:none">
+        <button class="transport-btn" id="compare-reset"><i data-lucide="rotate-ccw" style="width:16px;height:16px"></i></button>
+        <button class="transport-btn" id="compare-step-back"><i data-lucide="skip-back" style="width:16px;height:16px"></i></button>
+        <button class="transport-btn transport-play" id="compare-play">
+            <i data-lucide="play" style="width:18px;height:18px" id="compare-play-icon"></i>
+        </button>
+        <button class="transport-btn" id="compare-step-fwd"><i data-lucide="skip-forward" style="width:16px;height:16px"></i></button>
+    </div>
+
+    <!-- Comparison Stats -->
+    <div class="compare-stats" id="compare-stats" style="display:none">
+        <!-- Populated by comparison.js -->
+    </div>
+
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="/static/js/comparison.js?v=1.1"></script>
+{% endblock %}

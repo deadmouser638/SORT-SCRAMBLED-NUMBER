@@ -1,0 +1,278 @@
+/* 
+ * compare.css
+ * Part of the Sort Scramble Visualization Engine.
+ */
+
+/* Container and Grid Layout */
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Controls Header Area */
+.compare-controls {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.compare-pickers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.vs-badge {
+    background: var(--primary);
+    color: white;
+    font-weight: 800;
+    font-size: 1.25rem;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-top: 1.5rem; /* Align between dropdowns */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+}
+
+.picker-group, .compare-array-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.array-input-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.array-input-row .text-input {
+    flex: 1;
+}
+
+/* Dual Visualization Panels */
+.compare-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.compare-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.panel-algo-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.panel-stats {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: flex;
+    gap: 1.5rem;
+}
+
+.panel-stats strong {
+    color: var(--primary);
+    margin-right: 0.25rem;
+}
+
+.panel-bars {
+    height: 350px;
+    padding: 2.5rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    background: var(--bg);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.placeholder-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Sub-bars Implementation */
+.bar {
+    width: 100%;
+    max-width: 30px;
+    background-color: var(--bar-default, #4b5563);
+    border-radius: 4px 4px 0 0;
+    transition: height 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+}
+
+.bar:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.2);
+}
+
+.bar[data-state="comparing"] { background-color: var(--warning, #f59e0b); }
+.bar[data-state="swapping"] { background-color: var(--danger, #ef4444); }
+.bar[data-state="sorted"] { background-color: var(--success, #10b981); }
+
+/* Transport Controls (Play/Pause) */
+.compare-transport {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.transport-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.transport-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.transport-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.transport-play {
+    width: 56px;
+    height: 56px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sleek Buttons for Comparison */
+#btn-compare {
+    background: linear-gradient(135deg, var(--primary, #3b82f6), #2563eb);
+    color: white;
+    font-weight: 700;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+#btn-compare:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+    filter: brightness(1.1);
+}
+
+#btn-compare:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+#btn-compare:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+    box-shadow: none;
+}
+
+.btn--ghost {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn--ghost:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+    transform: translateY(-1px);
+}
+
+/* Responsive Scaling */
+@media (max-width: 900px) {
+    .compare-panels {
+        grid-template-columns: 1fr;
+    }
+    .compare-pickers {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .vs-badge {
+        margin-top: 0;
+    }
+}

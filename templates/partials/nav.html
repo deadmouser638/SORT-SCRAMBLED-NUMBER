@@ -1,0 +1,52 @@
+<!-- Global Navigation Bar -->
+<nav class="global-nav" id="global-nav">
+    <div class="nav-inner">
+
+        <!-- Logo -->
+        <a href="/" class="nav-logo">
+            <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true">
+                <rect width="32" height="32" rx="4" fill="#12141B"/>
+                <rect x="4" y="20" width="4" height="8" fill="#8B5CF6" rx="1"/>
+                <rect x="10" y="14" width="4" height="14" fill="#06B6D4" rx="1"/>
+                <rect x="16" y="8" width="4" height="20" fill="#5E6AD2" rx="1"/>
+                <rect x="22" y="4" width="4" height="24" fill="#22C55E" rx="1"/>
+            </svg>
+            <span class="nav-logo-text">SORT SCRAMBLE</span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="nav-links" id="nav-links">
+            <a href="/" class="nav-link {% if active_page == 'landing' %}nav-link--active{% endif %}" data-page="landing">
+                <i data-lucide="home" class="nav-icon"></i>
+                <span>Home</span>
+            </a>
+            <a href="/visualizer" class="nav-link {% if active_page == 'visualizer' %}nav-link--active{% endif %}" data-page="visualizer">
+                <i data-lucide="bar-chart-2" class="nav-icon"></i>
+                <span>Visualizer</span>
+            </a>
+            <a href="/benchmark" class="nav-link {% if active_page == 'benchmark' %}nav-link--active{% endif %}" data-page="benchmark">
+                <i data-lucide="zap" class="nav-icon"></i>
+                <span>Benchmark</span>
+            </a>
+            <a href="/learn" class="nav-link {% if active_page == 'learn' %}nav-link--active{% endif %}" data-page="learn">
+                <i data-lucide="book-open" class="nav-icon"></i>
+                <span>Learn</span>
+            </a>
+            <a href="/compare" class="nav-link {% if active_page == 'compare' %}nav-link--active{% endif %}" data-page="compare">
+                <i data-lucide="git-compare" class="nav-icon"></i>
+                <span>Compare</span>
+            </a>
+            <a href="/race" class="nav-link {% if active_page == 'race' %}nav-link--active{% endif %}" data-page="race">
+                <i data-lucide="flag" class="nav-icon"></i>
+                <span>Race</span>
+            </a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation">
+            <i data-lucide="menu" class="hamburger-open"></i>
+            <i data-lucide="x" class="hamburger-close" style="display:none"></i>
+        </button>
+
+    </div>
+</nav>

@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block title %}Benchmark{% endblock %}
+{% block meta_desc %}Benchmark 6 sorting algorithms across input patterns. Compare execution time, comparisons, and swaps.{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/benchmark.css?v=1.1">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <!-- Full Page Parallax Background -->
+    <div class="benchmark-bg"></div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">Performance Benchmark</h1>
+        <p class="page-subtitle">Compare execution time, comparisons, and swaps across 6 algorithms and 4 input patterns</p>
+    </div>
+
+    <!-- Controls -->
+    <div class="benchmark-controls" id="benchmark-controls">
+        <div class="controls-row">
+            <div class="control-group">
+                <label class="control-label">
+                    <i data-lucide="sliders-horizontal" class="control-icon"></i>
+                    Array Size
+                </label>
+                <div class="slider-with-value">
+                    <input type="range" id="bench-size" min="10" max="500" value="100" class="slider slider--bench">
+                    <span class="slider-value" id="bench-size-val">100</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">
+                    <i data-lucide="shuffle" class="control-icon"></i>
+                    Input Pattern
+                </label>
+                <select id="bench-pattern" class="select-input">
+                    <option value="random">Random</option>
+                    <option value="nearly_sorted">Nearly Sorted</option>
+                    <option value="reversed">Reversed</option>
+                    <option value="few_unique">Few Unique</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label class="control-label">
+                    <i data-lucide="repeat" class="control-icon"></i>
+                    Iterations
+                </label>
+                <div class="slider-with-value">
+                    <input type="range" id="bench-iters" min="10" max="100" value="50" step="10" class="slider slider--bench">
+                    <span class="slider-value" id="bench-iters-val">50</span>
+                </div>
+            </div>
+        </div>
+        <div class="controls-actions">
+            <button class="btn btn--primary btn--lg" id="btn-run-benchmark">
+                <i data-lucide="zap" class="btn-icon"></i>
+                Run Benchmark
+            </button>
+            <button class="btn btn--secondary btn--lg" id="btn-run-matrix">
+                <i data-lucide="grid-3x3" class="btn-icon"></i>
+                Full Pattern Analysis
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="benchmark-loading" id="benchmark-loading" style="display:none">
+        <div class="loading-spinner"></div>
+        <div class="loading-info">
+            <span class="loading-text" id="loading-text">Running 6 algorithms...</span>
+            <div class="loading-progress-track">
+                <div class="loading-progress-bar" id="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Container (hidden until benchmark runs) -->
+    <div class="benchmark-results" id="benchmark-results" style="display:none">
+
+        <!-- Summary Cards -->
+        <div class="summary-cards" id="summary-cards">
+            <div class="summary-card summary-card--fastest">
+                <div class="summary-card-icon"><i data-lucide="trophy"></i></div>
+                <div class="summary-card-body">
+                    <span class="summary-card-label">Fastest</span>
+                    <span class="summary-card-value" id="fastest-algo">--</span>
+                    <span class="summary-card-time" id="fastest-time"></span>
+                </div>
+            </div>
+            <div class="summary-card summary-card--slowest">
+                <div class="summary-card-icon"><i data-lucide="clock"></i></div>
+                <div class="summary-card-body">
+                    <span class="summary-card-label">Slowest</span>
+                    <span class="summary-card-value" id="slowest-algo">--</span>
+                    <span class="summary-card-time" id="slowest-time"></span>
+                </div>
+            </div>
+            <div class="summary-card summary-card--diff">
+                <div class="summary-card-icon"><i data-lucide="zap"></i></div>
+                <div class="summary-card-body">
+                    <span class="summary-card-label">Speed Difference</span>
+                    <span class="summary-card-value" id="speed-diff">--</span>
+                </div>
+            </div>
+            <div class="summary-card summary-card--ops">
+                <div class="summary-card-icon"><i data-lucide="activity"></i></div>
+                <div class="summary-card-body">
+                    <span class="summary-card-label">Fewest Operations</span>
+                    <span class="summary-card-value" id="fewest-ops-algo">--</span>
+                    <span class="summary-card-time" id="fewest-ops-count"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="charts-row">
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <h3 class="chart-title">Execution Time</h3>
+                    <span class="chart-subtitle">Average ms across iterations</span>
+                </div>
+                <div class="chart-wrap">
+                    <canvas id="chart-exec-time"></canvas>
+                </div>
+            </div>
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <h3 class="chart-title">Operations Count</h3>
+                    <span class="chart-subtitle">Comparisons vs Swaps per algorithm</span>
+                </div>
+                <div class="chart-wrap">
+                    <canvas id="chart-operations"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Growth Curves -->
+        <div class="chart-panel chart-panel--wide">
+            <div class="chart-header">
+                <h3 class="chart-title">Theoretical Growth Curves</h3>
+                <span class="chart-subtitle">Big-O complexity comparison — how execution scales with input size</span>
+            </div>
+            <div class="chart-wrap chart-wrap--tall">
+                <canvas id="chart-growth"></canvas>
+            </div>
+        </div>
+
+        <!-- Input Pattern Matrix -->
+        <div class="matrix-panel" id="matrix-panel" style="display:none">
+            <div class="chart-header">
+                <h3 class="chart-title">Input Pattern Heatmap</h3>
+                <span class="chart-subtitle">Performance across Random, Nearly Sorted, Reversed, and Few Unique inputs</span>
+            </div>
+            <div class="matrix-table-wrap">
+                <table class="matrix-table" id="matrix-table">
+                    <!-- Populated by benchmark.js -->
+                </table>
+            </div>
+        </div>
+
+        <!-- Detailed Comparison Table -->
+        <div class="table-panel">
+            <div class="chart-header">
+                <h3 class="chart-title">Detailed Comparison</h3>
+                <span class="chart-subtitle">Full metrics for each algorithm</span>
+            </div>
+            <div class="table-wrap">
+                <table class="comparison-table" id="comparison-table">
+                    <!-- Populated by benchmark.js -->
+                </table>
+            </div>
+        </div>
+
+        <!-- Analysis Report -->
+        <div class="analysis-panel" id="analysis-panel">
+            <div class="chart-header">
+                <h3 class="chart-title">Analysis Report</h3>
+                <span class="chart-subtitle">Key insights from this benchmark run</span>
+            </div>
+            <div class="analysis-cards" id="analysis-cards">
+                <!-- Populated by benchmark.js -->
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="/static/js/benchmark.js?v=1.1"></script>
+{% endblock %}
