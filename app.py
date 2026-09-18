@@ -240,7 +240,19 @@ def api_benchmark():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html", active_page=""), 404
+    try:
+        return render_template("404.html", active_page=""), 404
+    except Exception:
+        return jsonify({"error": "Page not found"}), 404
+
+
+@app.errorhandler(500)
+@app.errorhandler(Exception)
+def handle_internal_error(e):
+    try:
+        return render_template("404.html", active_page=""), 500
+    except Exception:
+        return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
 
 
 # -- Run -----------------------------------------------------------------------
