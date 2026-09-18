@@ -64,8 +64,6 @@ instance/
 
 # ── Node.js / Frontend ─────────────────────────────────────────
 node_modules/
-package.json
-package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -112,7 +110,6 @@ $RECYCLE.BIN/
 
 # ── Deployment & CI/CD ─────────────────────────────────────────
 .vercel
-.vercel.json
 .deploy/
 
 # ── App Specific / Temp ────────────────────────────────────────

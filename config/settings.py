@@ -25,9 +25,14 @@ class ProductionConfig(Config):
 # Mapping of configurations
 config_by_name = {
     "dev": DevelopmentConfig,
+    "development": DevelopmentConfig,
     "test": TestingConfig,
-    "prod": ProductionConfig
+    "testing": TestingConfig,
+    "prod": ProductionConfig,
+    "production": ProductionConfig
 }
 
-# Active configuration defaults to development
-config = config_by_name[os.environ.get('FLASK_ENV', 'dev')]
+# Active configuration with safe fallback
+env_name = os.environ.get('FLASK_ENV', os.environ.get('ENV', 'dev')).lower()
+config = config_by_name.get(env_name, ProductionConfig if env_name in ('prod', 'production') else DevelopmentConfig)
+

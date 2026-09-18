@@ -125,13 +125,31 @@ def sort():
     """
     data = request.get_json(silent=True) or {}
     algo = data.get("algorithm", "bubble")
-    arr = data.get("array", [])
+    raw_arr = data.get("array", [])
+
+    if not isinstance(raw_arr, list):
+        raw_arr = []
+
+    clean_arr = []
+    for item in raw_arr:
+        try:
+            clean_arr.append(int(item))
+        except (ValueError, TypeError):
+            continue
+
+    if not clean_arr:
+        clean_arr = [64, 11, 90, 25, 3, 47]
+
+    clean_arr = clean_arr[:1000]
 
     step_fn = ALGORITHMS.get(algo)
     if step_fn is None:
-        steps = mock_steps(arr)
+        steps = mock_steps(clean_arr)
     else:
-        steps = step_fn(arr)
+        try:
+            steps = step_fn(clean_arr)
+        except Exception:
+            steps = mock_steps(clean_arr)
 
     return jsonify({"steps": steps, "info": ALGO_INFO.get(algo, {})})
 
@@ -139,10 +157,17 @@ def sort():
 @app.route("/api/benchmark", methods=["POST"])
 def api_benchmark():
     """Run benchmark across all algorithms for a given array size and pattern."""
-    data = request.get_json()
-    size = min(int(data.get("size", 50)), 1000)
-    pattern = data.get("pattern", "random")
-    iterations = min(int(data.get("iterations", 50)), 100)
+    data = request.get_json(silent=True) or {}
+    try:
+        size = min(max(1, int(data.get("size", 50))), 1000)
+    except (ValueError, TypeError):
+        size = 50
+
+    pattern = str(data.get("pattern", "random"))
+    try:
+        iterations = min(max(1, int(data.get("iterations", 50))), 100)
+    except (ValueError, TypeError):
+        iterations = 50
 
     import random
 
