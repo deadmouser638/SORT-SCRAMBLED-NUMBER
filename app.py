@@ -117,6 +117,11 @@ def race():
     return render_template("race.html", active_page="race")
 
 
+@app.route("/googlee36c3136fe08020b.html")
+def google_verification():
+    return "google-site-verification: googlee36c3136fe08020b.html"
+
+
 # -- API Routes ----------------------------------------------------------------
 
 @app.route("/api/info")

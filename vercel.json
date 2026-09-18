@@ -9,7 +9,8 @@
           "templates/**",
           "static/**",
           "config/**",
-          "algorithms/**"
+          "algorithms/**",
+          "googlee36c3136fe08020b.html"
         ]
       }
     }
