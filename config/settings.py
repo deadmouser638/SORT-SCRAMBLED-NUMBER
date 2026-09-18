@@ -5,7 +5,11 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'dev_default_secret_key_change_in_prod')
     DEBUG = False
     TESTING = False
-    PORT = int(os.environ.get("PORT", 5000))
+    try:
+        _port_str = os.environ.get("PORT", "5000")
+        PORT = int(_port_str) if _port_str and _port_str.isdigit() else 5000
+    except (ValueError, TypeError):
+        PORT = 5000
 
 class DevelopmentConfig(Config):
     """Development configuration."""
