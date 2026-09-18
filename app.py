@@ -1,6 +1,6 @@
 import os
 import time
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, make_response
 
 # Configuration and Modules
 from config.settings import config
@@ -120,6 +120,20 @@ def race():
 @app.route("/googlee36c3136fe08020b.html")
 def google_verification():
     return "google-site-verification: googlee36c3136fe08020b.html"
+
+
+@app.route("/sitemap.xml")
+def sitemap():
+    response = make_response(render_template("sitemap.xml"))
+    response.headers["Content-Type"] = "application/xml"
+    return response
+
+
+@app.route("/robots.txt")
+def robots():
+    response = make_response(render_template("robots.txt"))
+    response.headers["Content-Type"] = "text/plain"
+    return response
 
 
 # -- API Routes ----------------------------------------------------------------

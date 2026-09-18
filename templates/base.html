@@ -4,13 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Sort Scramble{% endblock %} — Sorting Algorithm Visualizer</title>
-    <meta name="description" content="{% block meta_desc %}Visualize, compare, and race 6 sorting algorithms step-by-step. Built for DSA Hackathon 2026.{% endblock %}">
+    <meta name="description" content="{% block meta_desc %}Interactive sorting algorithm visualizer, benchmark engine, and live 6-way algorithm race platform for Bubble, Quick, Merge, Insertion, Selection, and Radix sort.{% endblock %}">
+    <meta name="keywords" content="sorting algorithm visualizer, bubble sort, quick sort, merge sort, insertion sort, selection sort, radix sort, data structures algorithms, DSA visualizer, algorithm benchmark, algorithm race">
+    <meta name="author" content="Sort Scramble">
+    <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="googlee36c3136fe08020b">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Sort Scramble — Sorting Algorithm Visualizer">
-    <meta property="og:description" content="Visualize, benchmark, and race 6 sorting algorithms with interactive animations.">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.base_url }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:site_name" content="Sort Scramble">
+    <meta property="og:title" content="{% block og_title %}Sort Scramble — Interactive Sorting Algorithm Visualizer{% endblock %}">
+    <meta property="og:description" content="{% block og_desc %}Visualize, compare, benchmark, and race 6 core sorting algorithms with real-time step-by-step animations.{% endblock %}">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.base_url }}">
+    <meta property="og:image" content="https://sort-scrambled-number.vercel.app/static/img/favicon.svg">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sort Scramble — Interactive Sorting Algorithm Visualizer">
+    <meta name="twitter:description" content="Visualize, compare, benchmark, and race 6 core sorting algorithms with real-time step-by-step animations.">
+    <meta name="twitter:image" content="https://sort-scrambled-number.vercel.app/static/img/favicon.svg">
+
+    <!-- JSON-LD Structured Data for Search Engines -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Sort Scramble",
+      "url": "https://sort-scrambled-number.vercel.app/",
+      "description": "Interactive Data Structures & Algorithms (DSA) sorting visualizer, benchmark engine, and multi-algorithm race platform.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Step-by-step sorting visualizer",
+        "Performance benchmarking engine",
+        "Side-by-side algorithm comparison",
+        "Simultaneous 6-way algorithm race",
+        "DSA educational guide with pseudocode"
+      ]
+    }
+    </script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/static/img/favicon.svg">
